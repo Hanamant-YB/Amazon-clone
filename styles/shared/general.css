@@ -99,3 +99,26 @@ select:focus,
 input:focus {
   outline: 2px solid rgb(255, 153, 0);
 }
+/* .hiding-first{
+  opacity: 0;
+  visibility: hidden;
+} */
+/* .added-to-cart{
+  opacity: 0;
+  visibility: hidden;
+} */
+/* .js-from-javascript{
+
+  opacity: 1;
+  visibility: visible;
+  display:contents;
+} */
+/* .image-design,
+.addedMessage{
+  width: 20px;
+  height: 0px;
+} */
+ .image-design{
+  width: 5px;
+ }
+ 

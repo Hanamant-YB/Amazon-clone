@@ -656,5 +656,35 @@ const products = [
       "apparel",
       "mens"
     ]
-  }
+  },{
+  id: "a1f3b9c2-8d45-4c1e-9b21-7e6a3d4f102a",
+  image: "images/products/backpack.jpg",
+  name: "Durable Travel Backpack with Laptop Compartment",
+  rating: {
+    stars: 4.5,
+    count: 1248
+  },
+  priceCents: 3499,
+  keywords: [
+    "backpack",
+    "travel",
+    "laptop",
+    "bags"
+  ]
+},{
+  id: "c7e2a5d9-3f18-4b6a-8c90-91d2f0e6ab45",
+  image: "images/products/umbrella.jpg",
+  name: "Automatic Windproof Rain Umbrella",
+  rating: {
+    stars: 4.0,
+    count: 892
+  },
+  priceCents: 1599,
+  keywords: [
+    "umbrella",
+    "rain",
+    "weather",
+    "accessories"
+  ]
+}
 ];
