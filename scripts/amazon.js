@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart,addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 
 let productHTML = '';
@@ -59,60 +59,24 @@ products.forEach((product)=>{
 
 document.querySelector('.js-products-grid')
     .innerHTML = productHTML;
+
+// let cartQuantity = 0;
+function updateCartQuantity(){
+            let cartQuantity = 0;
+            cart.forEach((cartItem)=>{
+            cartQuantity+=cartItem.quantityValue;
+            });
+
+            document.querySelector('.js-cart-quantity')
+            .innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.js-add-to-cart')
-    .forEach((b)=>{
-        let hideMessageTimer= 0;
-        b.addEventListener('click',()=>{
-        const {productId} = b.dataset;
-        const mainContainer = b.closest('.product-container');
-        const retriveQuantityClass = mainContainer.querySelector(`.js-quantity-selector`);
-        const quantityValue = Number(retriveQuantityClass.value);
-        let matchingItem;
-        cart.forEach((item)=>{
-            if(productId === item.productId){
-                matchingItem = item;
-            }
-        });
-        
-         if(matchingItem){
-                matchingItem.quantityValue+=quantityValue;
-                const addedCartText = mainContainer.querySelector('.added-to-cart')
-                addedCartText.classList.add('visiable-added-image-text');
-                mainContainer.querySelector('.addedMessage').innerHTML='Added'
-                // let interval = 0;
-                clearTimeout(hideMessageTimer);
-
-
-                hideMessageTimer = setTimeout(()=>{
-                    addedCartText.classList.remove('visiable-added-image-text')
-                },1000);
-              
-        }else{
-                cart.push({
-
-                    productId,
-                    quantityValue
-                });
-
-            //   addedCart.classList.add('js-from-javascript')
-            //   addedCart.innerHTML = 
-            
-            const addedCartText = mainContainer.querySelector('.added-to-cart')
-            addedCartText.classList.add('visiable-added-image-text');
-            mainContainer.querySelector('.addedMessage').innerHTML='Added'
-            
-            setTimeout(()=>{
-                addedCartText.classList.remove('visiable-added-image-text')
-            },1000);
-            
-                
-        }
-        let cartQuantity = 0;
-        cart.forEach((item)=>{
-            cartQuantity+=item.quantityValue;
-        });
-        document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity;
+        .forEach((b)=>{
+            let hideMessageTimer= 0;
+            b.addEventListener('click',()=>{
+            addToCart(b,hideMessageTimer);
+            updateCartQuantity();
 
         });
     });
