@@ -1,4 +1,4 @@
- export let cart =JSON.parse(localStorage.getItem('cart'));
+ export let cart = JSON.parse(localStorage.getItem('cart'));
  if(!cart){
     cart = [{
         productId:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -49,7 +49,6 @@ export function addToCart(b,hideMessageTimer){
 
                 //   addedCart.classList.add('js-from-javascript')
                 //   addedCart.innerHTML = 
-            
                 const addedCartText = mainContainer.querySelector('.added-to-cart')
                 addedCartText.classList.add('visiable-added-image-text');
                 mainContainer.querySelector('.addedMessage').innerHTML='Added'
@@ -59,6 +58,7 @@ export function addToCart(b,hideMessageTimer){
                 },1000);       
             }
             saveLocalStorage();
+
 }
 
 export function removeFromCart(productId){
@@ -71,5 +71,14 @@ export function removeFromCart(productId){
     });
 
     cart = newCart;
+    // calculateCartquantity();
     saveLocalStorage();
 }
+
+export function calculateCartquantity(){
+    let cartQuantity = 0;
+    cart.forEach((cartItem)=>{
+    cartQuantity+=cartItem.quantityValue;
+    });
+    return cartQuantity;
+};
