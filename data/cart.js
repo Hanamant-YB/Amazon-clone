@@ -32,7 +32,7 @@ export function addToCart(b,hideMessageTimer){
                 const addedCartText = mainContainer.querySelector('.added-to-cart')
                 addedCartText.classList.add('visiable-added-image-text');
                 mainContainer.querySelector('.addedMessage').innerHTML='Added'
-                // let interval = 0;
+         
                 clearTimeout(hideMessageTimer);
 
 
@@ -47,8 +47,7 @@ export function addToCart(b,hideMessageTimer){
                     quantityValue
                 });
 
-                //   addedCart.classList.add('js-from-javascript')
-                //   addedCart.innerHTML = 
+     
                 const addedCartText = mainContainer.querySelector('.added-to-cart')
                 addedCartText.classList.add('visiable-added-image-text');
                 mainContainer.querySelector('.addedMessage').innerHTML='Added'
@@ -71,7 +70,7 @@ export function removeFromCart(productId){
     });
 
     cart = newCart;
-    // calculateCartquantity();
+  
     saveLocalStorage();
 }
 

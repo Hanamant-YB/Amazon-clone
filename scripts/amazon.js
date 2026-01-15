@@ -3,9 +3,6 @@ import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 let productHTML = '';
 
-// cart = JSON.parse(localStorage.getItem('cart'));
-// let cartItems = JSON.parse(localStorage.getItem('cart'));
-// updateCartQuantity();
 products.forEach((product)=>{
     productHTML+= `
                         <div class="product-container">
@@ -70,7 +67,6 @@ const updateCartBadge=()=>{
 
 };
 updateCartBadge();    
-// calculateCartquantity();
 document.querySelectorAll('.js-add-to-cart')
         .forEach((b)=>{
             let hideMessageTimer= 0;
