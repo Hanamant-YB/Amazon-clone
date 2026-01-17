@@ -9,11 +9,9 @@
     }];
  } 
 
-
 function saveLocalStorage(){
     localStorage.setItem('cart',JSON.stringify(cart));
 }
-
 
 export function addToCart(b,hideMessageTimer){
         const {productId} = b.dataset;
@@ -32,9 +30,8 @@ export function addToCart(b,hideMessageTimer){
                 const addedCartText = mainContainer.querySelector('.added-to-cart')
                 addedCartText.classList.add('visiable-added-image-text');
                 mainContainer.querySelector('.addedMessage').innerHTML='Added'
-         
-                clearTimeout(hideMessageTimer);
 
+                clearTimeout(hideMessageTimer);
 
                 hideMessageTimer = setTimeout(()=>{
                     addedCartText.classList.remove('visiable-added-image-text')
@@ -47,7 +44,6 @@ export function addToCart(b,hideMessageTimer){
                     quantityValue
                 });
 
-     
                 const addedCartText = mainContainer.querySelector('.added-to-cart')
                 addedCartText.classList.add('visiable-added-image-text');
                 mainContainer.querySelector('.addedMessage').innerHTML='Added'
