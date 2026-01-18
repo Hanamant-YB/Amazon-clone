@@ -55,7 +55,6 @@ export function addToCart(b,hideMessageTimer){
             saveLocalStorage();
 
 }
-
 export function removeFromCart(productId){
     const newCart = [];
 
