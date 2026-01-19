@@ -44,11 +44,32 @@
   display: none;
 }
 
-.visiable-save-input{
+/* .visiable-save-input{
   display: inline-block;
+} */
+.update-text{
+  border: none;
 }
 
-
+.is-editing-quantity{
+    
+    
+     & .js-update{
+      display: none;
+     }
+     & .quantity-input{
+      display: inline-block;
+     }
+     & .save-quantity-link{
+      display: inline-block;
+     }
+     & .quantity-label{
+      display: none;
+     }
+     & .update-text{
+      display: none;
+     }
+}
 
 
 
