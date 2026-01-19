@@ -26,7 +26,6 @@ cart.forEach((cartItem)=>{
             <div class="cart-item-details-grid">
               <img class="product-image"
                 src="${matchingProduct.image}">
-
               <div class="cart-item-details">
                 <div class="product-name">
                   ${matchingProduct.name}
@@ -38,9 +37,11 @@ cart.forEach((cartItem)=>{
                   <span>
                     Quantity: <span class="quantity-label">${cartItem.quantityValue}</span>
                   </span>
-                  <span class="update-quantity-link link-primary js-update-link" data-product-id = "${matchingProduct.id}">
-                    Update
-                  </span>
+                  <span class="update-quantity-link link-primary            js-update-link" data-product-id = "${matchingProduct.id}">
+                    <span class="js-update">Update</span>
+                    <input type="number" value="${cartItem.quantityValue}" class="quantity-input"/>
+                    <span class="save-quantity-link">save</span>
+                  </span>          
                   <span class="delete-quantity-link link-primary js-delete-link " data-product-id="${matchingProduct.id}">
                     Delete
                   </span>
@@ -120,6 +121,17 @@ document.querySelectorAll('.js-update-link')
 .forEach((link)=>{
   link.addEventListener('click',()=>{
     const{productId} = link.dataset;
+    const cartItemContainer = link.closest('.cart-item-container');
+    const cartUpdateText = cartItemContainer.querySelector('.js-update')
+    cartUpdateText.classList.add('hide-update')
+    const quantityInput = cartItemContainer.querySelector('.quantity-input')
+    quantityInput.classList.add('visiable-save-input');
+    const save = cartItemContainer.querySelector('.save-quantity-link')
+    save.classList.add('visiable-save-input');
     console.log(productId);
   })
 });
+
+
+
+
