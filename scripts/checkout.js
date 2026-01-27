@@ -1,4 +1,4 @@
-import {cart, removeFromCart,calculateCartquantity,updateQuantity,saveLocalStorage} from '../data/cart.js';
+import {cart, removeFromCart,calculateCartquantity,updateQuantity,saveLocalStorage, updateDeliveryOption} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js'
@@ -12,6 +12,7 @@ console.log(deliveryDate.format('dddd, MMMM D'));
 let cartSummaryHTML = '';
 
 cart.forEach((cartItem)=>{
+
     const productId = cartItem.productId;
     
     let matchingProduct;
@@ -23,24 +24,19 @@ cart.forEach((cartItem)=>{
     });
 
     console.log(matchingProduct);
-    // let deliveryOption;
-    const deliveryOptionId = cartItem.deliveryOptionsId;
+    
+    let deliveryOptionId = cartItem.deliveryOptionsId;
 
-    // let deliveryOption;
+    
+// let deliveryOption;
+let deliveryOption = deliveryOptions.find(opt => opt.id === deliveryOptionId);
 
-    let deliveryOption = deliveryOptions.find(o => o.id == cartItem.deliveryOptionsId);
+// if (!deliveryOption) {
+//     console.log('Delivery option not found for product', productId);
+//     deliveryOption = { deliveryDays: 0, priceCents: 0 }; // fallback
+// }
+// const deliverDate = today.add(deliveryOption.deliveryDays, 'days');
 
-// if missing, assign default and persist
-    if (!deliveryOption) {
-      deliveryOption = deliveryOptions[0];
-      cartItem.deliveryOptionsId = deliveryOption.id;
-      saveLocalStorage();
-    }
-    deliveryOptions.forEach((options)=>{
-      if(options.id == deliveryOptionId){
-        deliveryOption = options;
-      }
-    })
   
      const today = dayjs();
       const deliverDate = today.add(
@@ -111,24 +107,24 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
       );
       const priceString = deliveryOption.priceCents === 0? 'FREE' :`$${formatCurrency(deliveryOption.priceCents)} `;
 
-      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionsId;
       html+=`
-               <div class="delivery-option">
-                <input type="radio"
-                  ${isChecked ? 'checked' : ''}
-                  class="delivery-option-input js-delivery-option"
-                  data-product-id="${matchingProduct.id}"
-                  data-delivery-option-id="${deliveryOption.id}"
-                  name="delivery-option-${matchingProduct.id}">
-                <div>
-                  <div class="delivery-option-date">
-                    ${dateString}
-                  </div>
-                  <div class="delivery-option-price">
-                    ${priceString}-Shipping
+                <div class="delivery-option">
+                  <input type="radio"
+                    ${isChecked ? 'checked':''}
+                    class="delivery-option-input js-delivery-option"
+                    data-product-id="${matchingProduct.id}"
+                    data-delivery-option-id="${deliveryOption.id}"
+                    name="delivery-option-${matchingProduct.id}">
+                  <div>
+                    <div class="delivery-option-date">
+                      ${dateString}
+                    </div>
+                    <div class="delivery-option-price">
+                      ${priceString}-Shipping
+                    </div>
                   </div>
                 </div>
-              </div>
     `
   });
   return html;
@@ -136,29 +132,6 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
 
 document.querySelector('.js-order-summary')
 .innerHTML = cartSummaryHTML;
-
-document.querySelectorAll('.js-delivery-option').forEach((input) => {
-  input.addEventListener('change', () => {
-    const { productId, deliveryOptionId } = input.dataset;
-
-    // update cart item
-    const item = cart.find(ci => ci.productId === productId);
-    if (item) {
-      item.deliveryOptionsId = deliveryOptionId;
-      saveLocalStorage();
-    }
-
-    // update top delivery date in that item container (no reload)
-    const container = document.querySelector(`.js-cart-item-container-${productId}`);
-    if (container) {
-      const option = deliveryOptions.find(o => o.id == deliveryOptionId) || deliveryOptions[0];
-      const newDate = dayjs().add(option.deliveryDays, 'days').format('dddd, MMMM D');
-      const deliveryDateEl = container.querySelector('.delivery-date');
-      if (deliveryDateEl) deliveryDateEl.textContent = `Delivery date: ${newDate}`;
-    }
-  });
-});
-
 
 document.querySelectorAll('.js-delete-link')
 .forEach((link)=>{
@@ -250,4 +223,12 @@ document.querySelectorAll('.quantity-input')
           }
         }
       })
+})
+
+document.querySelectorAll('.js-delivery-option')
+.forEach((element) =>{
+  element.addEventListener('click',()=>{
+    const {deliveryOptionId,productId} = element.dataset
+    updateDeliveryOption(productId,deliveryOptionId)
+  })
 })
