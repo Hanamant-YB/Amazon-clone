@@ -5,7 +5,7 @@ export function findMatchingProduct(productId){
               if(product.id === productId){
                   matchingProduct = product;
               }
-          });
+          }); 
       return matchingProduct;
 }
 
